@@ -189,6 +189,7 @@ In addition, you will need to have either Treesitter or a working LSP client. Yo
 - toml
 - tsx
 - typescript
+- typst
 - usd
 - vim
 - vimdoc
