@@ -185,6 +185,7 @@ In addition, you will need to have either Treesitter or a working LSP client. Yo
 - ssh_config
 - starlark
 - swift
+- systemverilog
 - teal
 - terraform
 - toml
@@ -192,6 +193,7 @@ In addition, you will need to have either Treesitter or a working LSP client. Yo
 - typescript
 - typst
 - usd
+- vhdl
 - vim
 - vimdoc
 - vue
