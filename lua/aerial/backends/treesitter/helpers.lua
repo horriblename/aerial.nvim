@@ -36,13 +36,21 @@ end
 
 ---@param lang string
 ---@return vim.treesitter.Query|nil
----@note caches queries to avoid filesystem hits on neovim 0.9+
+---@return string|nil err  parse error when the aerial query is invalid for this grammar
+---@note caches queries (and parse errors) to avoid filesystem hits on neovim 0.9+
 M.get_query = function(lang)
   if not query_cache[lang] then
-    query_cache[lang] = { query = vim.treesitter.query.get(lang, "aerial") }
+    -- Defensive against query files that reference node types missing from
+    -- the installed grammar. See #506.
+    local ok, query = pcall(vim.treesitter.query.get, lang, "aerial")
+    if ok then
+      query_cache[lang] = { query = query }
+    else
+      query_cache[lang] = { err = tostring(query) }
+    end
   end
-
-  return query_cache[lang].query
+  local entry = query_cache[lang]
+  return entry.query, entry.err
 end
 
 ---@param lang string
